@@ -1,0 +1,21 @@
+Descrição dos diretórios e arquivos:
+docs/: Contém a documentação do projeto. Pode incluir manuais de uso, guias de instalação, etc.
+
+my_project/: Diretório principal do código-fonte do projeto.
+
+__init__.py: Indica que esse diretório é um pacote Python.
+core/: Módulos centrais do projeto que contêm a lógica principal.
+utils/: Funções utilitárias e helpers que são usadas em várias partes do projeto.
+data/: Módulos responsáveis pela manipulação e acesso a dados (e.g., conexão com banco de dados, leitura de arquivos).
+models/: Definições de modelos e lógica de negócios, onde a estrutura dos dados e regras de negócio são definidas.
+tests/: Contém os testes unitários e de integração do projeto. Cada módulo principal tem um arquivo de teste correspondente.
+
+scripts/: Scripts para execução do projeto, como scripts de inicialização, migrações de banco de dados, etc.
+
+.gitignore: Arquivo para especificar quais arquivos e diretórios devem ser ignorados pelo Git.
+
+requirements.txt: Lista de dependências do projeto que podem ser instaladas com pip.
+
+setup.py: Script de configuração para instalação do projeto como um pacote. Define metadados do projeto e dependências.
+
+README.md: Arquivo de introdução e documentação inicial do projeto. Contém informações sobre o projeto, como instalar, usar e contribuir.
