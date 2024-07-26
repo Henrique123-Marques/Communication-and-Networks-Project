@@ -1,40 +1,9 @@
-#Estrutura do Projeto: 
+#Project motivation
 
-my_project/
-│
-├── docs/
-│   └── (documentação do projeto)
-│
-├── my_project/
-│   ├── __init__.py
-│   ├── core/
-│   │   ├── __init__.py
-│   │   └── (módulos centrais do projeto)
-│   │
-│   ├── utils/
-│   │   ├── __init__.py
-│   │   └── (funções utilitárias e helpers)
-│   │
-│   ├── data/
-│   │   ├── __init__.py
-│   │   └── (manipulação e acesso a dados)
-│   │
-│   └── models/
-│       ├── __init__.py
-│       └── (definições de modelos e lógica de negócios)
-│
-├── tests/
-│   ├── __init__.py
-│   ├── test_core.py
-│   ├── test_utils.py
-│   ├── test_data.py
-│   └── test_models.py
-│
-├── scripts/
-│   └── (scripts para execução do projeto, migrações, etc.)
-│
-├── .gitignore
-├── requirements.txt
-├── setup.py
-├── README.md
-└── LICENSE
+--- 
+
+#São Paulo City (Brazil) Metro Line Analysis
+
+This project aims to analyze the metro lines of São Paulo using graph theory concepts. By representing the metro network as a graph, we identify the most important lines and stations, assess network robustness, and visualize key insights. The analysis is conducted using Python, with data processing, graph creation, and visualization forming the core components of the project. The results provide valuable information for understanding the metro system's efficiency and resilience.
+
+--- 
