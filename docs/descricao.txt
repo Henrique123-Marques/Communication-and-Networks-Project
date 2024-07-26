@@ -10,8 +10,6 @@ data/: Módulos responsáveis pela manipulação e acesso a dados (e.g., conexã
 models/: Definições de modelos e lógica de negócios, onde a estrutura dos dados e regras de negócio são definidas.
 tests/: Contém os testes unitários e de integração do projeto. Cada módulo principal tem um arquivo de teste correspondente.
 
-scripts/: Scripts para execução do projeto, como scripts de inicialização, migrações de banco de dados, etc.
-
 .gitignore: Arquivo para especificar quais arquivos e diretórios devem ser ignorados pelo Git.
 
 requirements.txt: Lista de dependências do projeto que podem ser instaladas com pip.
