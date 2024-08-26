@@ -28,10 +28,6 @@ for index, row in df.iterrows():
     # Adicionar o nó com o atributo de demanda média
     G.add_node(estacao, demanda=demanda_media)
 
-# Imprimir todos os nós do grafo para depuração
-#print("Nós do grafo (estações):")
-#	print(G.nodes)
-
 # Definir conexões (corrigir para refletir o padrão de capitalização e remoção de espaços)
 conexoes = [
     ('Ana Rosa', 'Paraíso'),
@@ -59,47 +55,67 @@ for estacao1, estacao2 in conexoes:
     else:
         print(f"Erro: Uma ou ambas as estações '{estacao1}' ou '{estacao2}' não existem no grafo.")
 
-
 # Cálculo das métricas de centralidade
 degree_centrality = nx.degree_centrality(G)
 betweenness_centrality = nx.betweenness_centrality(G, weight='weight')
 eigenvector_centrality = nx.eigenvector_centrality(G, max_iter=1000)
-print(f"Grau de Centralidade (Degree Centrality): {degree_centrality}")
-print(f"\nCentralidade de Intermediação (Betweenness Centrality): {betweenness_centrality}")
-print(f"\nCentralidade de Conectividade (Eigenvector Centrality): {eigenvector_centrality}")
 
-#ANALISE DE CONECTIVIDADE - Identificar componentes conexos
+# Salvar métricas de centralidade em um arquivo CSV
+df_centralities = pd.DataFrame({
+    'Estacao': list(G.nodes),
+    'Degree_Centrality': [degree_centrality[node] for node in G.nodes],
+    'Betweenness_Centrality': [betweenness_centrality[node] for node in G.nodes],
+    'Eigenvector_Centrality': [eigenvector_centrality[node] for node in G.nodes]
+})
+df_centralities.to_csv('centralities.csv', index=False)
+
+# Identificar componentes conexos
 componentes_conexos = list(nx.connected_components(G))
-print(f"Componentes Conexos (Sub-redes):")
-for i, componente in enumerate(componentes_conexos):
-    print(f"Componente {i+1}: {componente}")
 
-# RESILIENCIA DE REDE - Identificar pontos de articulação
+# Salvar componentes conexos em um arquivo CSV
+df_componentes = pd.DataFrame({
+    'Componente': [f'Componente {i+1}' for i in range(len(componentes_conexos))],
+    'Estacoes': [', '.join(componente) for componente in componentes_conexos]
+})
+df_componentes.to_csv('componentes_conexos.csv', index=False)
+
+# Identificar pontos de articulação
 pontos_articulacao = list(nx.articulation_points(G))
-# Exibir pontos de articulação
-print("Pontos Críticos (Pontos de Articulação):")
-print(pontos_articulacao)
 
+# Salvar pontos de articulação em um arquivo CSV
+df_articulacao = pd.DataFrame({
+    'Pontos_de_Articulacao': pontos_articulacao
+})
+df_articulacao.to_csv('pontos_articulacao.csv', index=False)
 
-# ANALISE DE FLUXO - Exemplo de cálculo de fluxo máximo entre duas estações
+# Análise de fluxo - Exemplo de cálculo de fluxo máximo entre duas estações
 origem = 'Brás'
 destino = 'República'
 fluxo_maximo, fluxo_dict = nx.maximum_flow(G, origem, destino, capacity='weight')
-print(f"Fluxo Máximo entre {origem} e {destino}: {fluxo_maximo}")
 
-#CAMINHO MINIMO 
-origem = 'Brás'
-destino = 'República'
-# Encontrar o caminho mais curto considerando o peso das arestas
+# Salvar fluxo máximo em um arquivo CSV
+df_fluxo_maximo = pd.DataFrame({
+    'Origem': [origem],
+    'Destino': [destino],
+    'Fluxo_Maximo': [fluxo_maximo]
+})
+df_fluxo_maximo.to_csv('fluxo_maximo.csv', index=False)
+
+# Análise de caminho mínimo
 caminho_minimo = nx.shortest_path(G, source=origem, target=destino, weight='weight')
-print(f"Caminho Mínimo entre {origem} e {destino}: {caminho_minimo}")
 distancia_minima = nx.shortest_path_length(G, source=origem, target=destino, weight='weight')
-print(f"Distância do Caminho Mínimo entre {origem} e {destino}: {distancia_minima}")
 
+# Salvar caminho mínimo e distância mínima em um arquivo CSV
+df_caminho_minimo = pd.DataFrame({
+    'Origem': [origem],
+    'Destino': [destino],
+    'Caminho_Minimo': [', '.join(caminho_minimo)],
+    'Distancia_Minima': [distancia_minima]
+})
+df_caminho_minimo.to_csv('caminho_minimo.csv', index=False)
 
 # Desenhar o grafo
 plt.figure(figsize=(12, 8))
-#pos = nx.spring_layout(G, seed=42)  # Layout do grafo
 pos = nx.random_layout(G)
 
 # Desenhar nós
