@@ -1,7 +1,6 @@
 import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
-import community as community_louvain
 
 # Carregar o arquivo CSV
 file_path = 'C:\\Projects\\Python\\Desktop\\ComNet Project\\data\\dados.csv'
@@ -31,14 +30,14 @@ for index, row in df.iterrows():
 
 # Imprimir todos os nós do grafo para depuração
 #print("Nós do grafo (estações):")
-#print(G.nodes)
+#	print(G.nodes)
 
 # Definir conexões (corrigir para refletir o padrão de capitalização e remoção de espaços)
 conexoes = [
     ('Ana Rosa', 'Paraíso'),
     ('Sé', 'Luz'),
     ('Vila Prudente', 'Tamanduateí'),
-    ('Trianon-Masp', 'Consolação'),
+    ('Paulista', 'Consolação'),
     ('Brás', 'República'),
     ('Santa Cecília', 'Barra Funda'),
     ('Pinheiros', 'Pinheiros')
@@ -82,7 +81,7 @@ print("Pontos Críticos (Pontos de Articulação):")
 print(pontos_articulacao)
 
 
-# ANALLISE DE FLUXO - Exemplo de cálculo de fluxo máximo entre duas estações
+# ANALISE DE FLUXO - Exemplo de cálculo de fluxo máximo entre duas estações
 origem = 'Brás'
 destino = 'República'
 fluxo_maximo, fluxo_dict = nx.maximum_flow(G, origem, destino, capacity='weight')
