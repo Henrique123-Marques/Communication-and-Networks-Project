@@ -3,20 +3,14 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import community as community_louvain
 
-# Carregar o arquivo CSV
 file_path = 'C:\\Projects\\Python\\Desktop\\ComNet Project\\data\\dados.csv'
 
 try:
-    # Tenta ler o arquivo CSV com a codificação utf-8
     df = pd.read_csv(file_path, encoding='utf-8')
 except UnicodeDecodeError:
-    # Se falhar, tenta com a codificação 'ISO-8859-1'
     df = pd.read_csv(file_path, encoding='ISO-8859-1')
-
-# Remover espaços em branco e padronizar capitalização nos nomes das estações
 df['Estacao'] = df['Estacao'].str.strip().str.title()
 
-# Inicializar o grafo
 G = nx.Graph()
 
 # Adicionar nós ao grafo
@@ -64,18 +58,12 @@ for estacao, comunidade in particao.items():
 modularidade = community_louvain.modularity(particao, G, weight='weight')
 print(f"Modularidade da rede: {modularidade:.4f}")
 
-# Visualizar o grafo com as comunidades
 plt.figure(figsize=(12, 8))
 pos = nx.spring_layout(G, seed=42)
 
-# Desenhar nós com cores baseadas nas comunidades
 cores = [particao[estacao] for estacao in G.nodes]
 nx.draw_networkx_nodes(G, pos, node_size=500, cmap=plt.cm.Set3, node_color=cores)
-
-# Desenhar arestas
 nx.draw_networkx_edges(G, pos, edgelist=G.edges(data=True), width=1, alpha=0.5)
-
-# Desenhar rótulos dos nós
 nx.draw_networkx_labels(G, pos, font_size=8)
 
 plt.title('Comunidades nas Estações de Metrô e Trem de São Paulo (Algoritmo de Louvain)')

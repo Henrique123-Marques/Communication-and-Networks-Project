@@ -6,20 +6,15 @@ import matplotlib.pyplot as plt
 file_path = 'C:\\Projects\\Python\\Desktop\\ComNet Project\\data\\dados.csv'
 
 try:
-    # Tenta ler o arquivo CSV com a codificação utf-8
     df = pd.read_csv(file_path, encoding='utf-8')
 except UnicodeDecodeError:
-    # Se falhar, tenta com a codificação 'ISO-8859-1'
     df = pd.read_csv(file_path, encoding='ISO-8859-1')
 
-# Remover espaços em branco e padronizar capitalização nos nomes das estações
 df['Estacao'] = df['Estacao'].str.strip().str.title()
 
 print(df.head())
 
-# Inicializar o grafo
 G = nx.Graph()
-
 # Adicionar nós ao grafo
 for index, row in df.iterrows():
     estacao = row['Estacao']
@@ -40,7 +35,6 @@ conexoes = [
     # Adicione todas as conexões reais
 ]
 
-# Remover espaços e padronizar nomes nas conexões
 conexoes = [(estacao1.strip().title(), estacao2.strip().title()) for estacao1, estacao2 in conexoes]
 
 # Adicionar arestas ao grafo com base nas conexões
@@ -81,8 +75,6 @@ df_componentes.to_csv('componentes_conexos.csv', index=False)
 
 # Identificar pontos de articulação
 pontos_articulacao = list(nx.articulation_points(G))
-
-# Salvar pontos de articulação em um arquivo CSV
 df_articulacao = pd.DataFrame({
     'Pontos_de_Articulacao': pontos_articulacao
 })
@@ -93,7 +85,6 @@ origem = 'Brás'
 destino = 'República'
 fluxo_maximo, fluxo_dict = nx.maximum_flow(G, origem, destino, capacity='weight')
 
-# Salvar fluxo máximo em um arquivo CSV
 df_fluxo_maximo = pd.DataFrame({
     'Origem': [origem],
     'Destino': [destino],
@@ -105,7 +96,6 @@ df_fluxo_maximo.to_csv('fluxo_maximo.csv', index=False)
 caminho_minimo = nx.shortest_path(G, source=origem, target=destino, weight='weight')
 distancia_minima = nx.shortest_path_length(G, source=origem, target=destino, weight='weight')
 
-# Salvar caminho mínimo e distância mínima em um arquivo CSV
 df_caminho_minimo = pd.DataFrame({
     'Origem': [origem],
     'Destino': [destino],
@@ -114,11 +104,8 @@ df_caminho_minimo = pd.DataFrame({
 })
 df_caminho_minimo.to_csv('caminho_minimo.csv', index=False)
 
-# Desenhar o grafo
 plt.figure(figsize=(12, 8))
 pos = nx.random_layout(G)
-
-# Desenhar nós
 nx.draw_networkx_nodes(G, pos, node_size=500, node_color='lightblue')
 # Desenhar arestas com espessura proporcional ao peso
 edges = nx.draw_networkx_edges(
