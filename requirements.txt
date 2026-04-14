@@ -9,7 +9,7 @@ networkx==3.3
 numpy==2.0.0
 packaging==24.1
 pandas==2.2.2
-pillow==10.4.0
+pillow==12.2.0
 pycairo==1.26.1
 pyparsing==3.1.2
 PyPDF2==3.0.1
